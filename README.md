@@ -31,7 +31,7 @@ A platform where users can ask technical questions, provide answers, and vote on
 
 ## Tech Stack
 
-- [Next.js 14](https://nextjs.org/) — App Router, Server Components, Server Actions
+- [Next.js 16](https://nextjs.org/) — App Router, Server Components, Server Actions
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - [MongoDB](https://www.mongodb.com/) + [Mongoose](https://mongoosejs.com/)
