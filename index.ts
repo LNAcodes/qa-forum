@@ -1,6 +1,9 @@
 import { Hono } from "hono";
 import nunjucks from "nunjucks";
 import type { Answer, Question } from "./src/types.ts";
+import { questions } from "./src/data.ts";
+
+// console.log(questions);
 
 const app = new Hono();
 
