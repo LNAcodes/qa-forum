@@ -1,8 +1,6 @@
 # Q&A Forum
 
-A platform where users can ask technical questions, provide answers, and vote on the best solutions.
-
-🔗 [Live Demo](https://qa-forum-virid.vercel.app/)
+A platform where education professionals — teachers, social workers, and school support staff — can ask questions, share experiences, and help each other navigate structural problems in the school system.
 
 ---
 
@@ -31,11 +29,10 @@ A platform where users can ask technical questions, provide answers, and vote on
 
 ## Tech Stack
 
-- [Next.js 16](https://nextjs.org/) — App Router, Server Components, Server Actions
+- [Hono](https://hono.dev/) — Server, REST API
+- [Nunjucks](https://mozilla.github.io/nunjucks/) — Template Engine (later: JSX)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
-- [MongoDB](https://www.mongodb.com/) + [Mongoose](https://mongoosejs.com/)
-- [NextAuth.js v5](https://authjs.dev/)
+- [SQLite](https://www.sqlite.org/) — Database
 
 ---
 
@@ -44,8 +41,8 @@ A platform where users can ask technical questions, provide answers, and vote on
 \```bash
 git clone https://github.com/LNAcodes/qa-forum.git
 cd qa-forum
-npm install
-npm run dev
+bun install
+bun run dev
 \```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
