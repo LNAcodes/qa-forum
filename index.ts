@@ -24,11 +24,20 @@ app.get("/", (req, res) => {
 */
 
 app.get("/questions/:id", (c) => {
+  console.log("Route hit:", c.req.param("id"));
   const foundQuestion = questions.find(
     (question) => question.id === c.req.param("id"),
   );
   const html = nunjucks.render("detail.html", { question: foundQuestion });
   return c.html(html);
+});
+
+app.get("/test", (c) => {
+  return c.text("test works");
+});
+
+app.get("/questions/1", (c) => {
+  return c.text("questions 1 works");
 });
 
 export default {

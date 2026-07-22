@@ -1,0 +1,8 @@
+{%extends "base.html"%} {% block title %}Q&A Forum{% endblock %} {% block
+content %}
+<article>
+  <h2>{{ question.title }}</h2>
+  <p>{{ question.author }} - {{ question.createdAt }}</p>
+  <p>{{ question.body }}</p>
+</article>
+{% endblock %}
