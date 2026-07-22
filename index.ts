@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import nunjucks from "nunjucks";
-import type { Answer, Question } from "./src/types.ts";
 import { questions } from "./src/data.ts";
 
 // console.log(questions);
@@ -12,7 +11,7 @@ nunjucks.configure("views", {
 });
 
 app.get("/", (c) => {
-  const html = nunjucks.render("index.html"); // rendering to a string
+  const html = nunjucks.render("index.html", { questions }); // rendering to a string
   return c.html(html);
 });
 /* c.text("Hono!"));

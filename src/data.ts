@@ -1,3 +1,5 @@
+// Answers are nested inside each Question as an array (see types.ts: answers: Answer[])
+// No need to import Answer here or export answers separately
 import type { Question } from "./src/types.ts";
 
 export const questions: Question[] = [

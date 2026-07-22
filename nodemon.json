@@ -1,0 +1,4 @@
+{
+  "ext": "ts,html",
+  "exec": "bun index.ts"
+}
