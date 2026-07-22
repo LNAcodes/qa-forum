@@ -23,6 +23,14 @@ app.get("/", (req, res) => {
 });
 */
 
+app.get("/questions/:id", (c) => {
+  const foundQuestion = questions.find(
+    (question) => question.id === c.req.param("id"),
+  );
+  const html = nunjucks.render("detail.html", { question: foundQuestion });
+  return c.html(html);
+});
+
 export default {
   port: 3000,
   fetch: app.fetch,
