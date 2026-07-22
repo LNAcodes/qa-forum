@@ -32,6 +32,7 @@ app.get("/questions/:id", (c) => {
   return c.html(html);
 });
 
+/*
 app.get("/test", (c) => {
   return c.text("test works");
 });
@@ -39,6 +40,7 @@ app.get("/test", (c) => {
 app.get("/questions/1", (c) => {
   return c.text("questions 1 works");
 });
+*/
 
 export default {
   port: 3000,
