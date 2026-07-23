@@ -22,14 +22,22 @@ app.get("/", (req, res) => {
   res.render("index.html", { title: "Home" });
 });
 */
+app.get("/questions/new", (c) => {
+  const html = nunjucks.render("new-question.html");
+  return c.html(html);
+});
 
 app.get("/questions/:id", (c) => {
-  console.log("Route hit:", c.req.param("id"));
+  // console.log("Route hit:", c.req.param("id"));
   const foundQuestion = questions.find(
     (question) => question.id === c.req.param("id"),
   );
   const html = nunjucks.render("detail.html", { question: foundQuestion });
   return c.html(html);
+});
+
+app.post("/questions", async (c) => {
+  const body = await c.req.parseBody();
 });
 
 /*
