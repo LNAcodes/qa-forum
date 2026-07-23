@@ -1,0 +1,13 @@
+{%extends "base.html"%} {% block title %}Q&A Forum{% endblock %} {% block
+content %} {% if question %}
+<article>
+  <h2>{{ question.title }}</h2>
+  <p>{{ question.author }} - {{ question.createdAt }}</p>
+  <p>{{ question.body }}</p>
+</article>
+{% for answer in question.answers %}
+<p>{{answer.body}}</p>
+<p>{{answer.author}} - {{ answer.createdAt }}</p>
+{% endfor %} {% else %}
+<p>Question not found</p>
+{% endif %}{% endblock %}
