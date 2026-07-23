@@ -38,6 +38,19 @@ app.get("/questions/:id", (c) => {
 
 app.post("/questions", async (c) => {
   const body = await c.req.parseBody();
+
+  //for testing only - won't be stored
+  const newQuestion: Question = {
+    id: String(questions.length + 1),
+    title: body.title as string,
+    body: body.body as string,
+    author: "Anonymous",
+    createdAt: new Date().toLocaleDateString(),
+    answers: [],
+  };
+
+  questions.push(newQuestion);
+  return c.redirect("/");
 });
 
 /*
