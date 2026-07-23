@@ -5,4 +5,7 @@ content %}
   <p>{{ question.author }} - {{ question.createdAt }}</p>
   <p>{{ question.body }}</p>
 </article>
-{% endblock %}
+{% for answer in question.answers %}
+<p>{{answer.body}}</p>
+<p>{{answer.author}} - {{ answer.createdAt }}</p>
+{%endfor%} {% endblock %}
