@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import nunjucks from "nunjucks";
 import { questions } from "./src/data.ts";
+import type { Question } from "./src/types.d.ts";
 
 // console.log(questions);
 
