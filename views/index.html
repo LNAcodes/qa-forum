@@ -2,4 +2,4 @@
 content %} {% for question in questions %}
 <a href="/questions/{{question.id}}">{{question.title}}</a>
 <p>{{question.author}} - {{question.createdAt}}</p>
-{%endfor%} {% endblock %}
+{%endfor%} <a href="/questions/new">Link to form</a> {% endblock %}

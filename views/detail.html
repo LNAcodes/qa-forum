@@ -8,6 +8,18 @@ content %} {% if question %}
 {% for answer in question.answers %}
 <p>{{answer.body}}</p>
 <p>{{answer.author}} - {{ answer.createdAt }}</p>
-{% endfor %} {% else %}
+{% endfor %}
+<form
+  action="/questions/{{ question.id }}/answers"
+  method="POST"
+  class="form-example"
+>
+  <div>
+    <label for="body">I want to answer the question:</label>
+    <textarea name="body" id="body" required></textarea>
+  </div>
+  <input type="submit" value="Submit Answer" />
+</form>
+{% else %}
 <p>Question not found</p>
 {% endif %}{% endblock %}
