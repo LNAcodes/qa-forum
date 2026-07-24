@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import nunjucks from "nunjucks";
 import { questions } from "./src/data.ts";
-import type { Question } from "./src/types.d.ts";
+import type { Question, Answer } from "./src/types.d.ts";
 
 // console.log(questions);
 
@@ -51,6 +51,23 @@ app.post("/questions", async (c) => {
   };
 
   questions.push(newQuestion);
+  return c.redirect("/");
+});
+
+app.post("/questions/:id/answers", async (c) => {
+  const body = await c.req.parseBody();
+
+  const foundQuestion = questions.find(
+    (question) => question.id === c.req.param("id"),
+  );
+  const answerToQuestion: Answer = {
+    id: String(foundQuestion.answers.length + 1),
+    body: body.body as string,
+    author: "Anonymous",
+    createdAt: new Date().toLocaleDateString(),
+  };
+
+  foundQuestion.answers.push(answerToQuestion);
   return c.redirect("/");
 });
 
