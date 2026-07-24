@@ -11,6 +11,11 @@ nunjucks.configure("views", {
   autoescape: true,
 });
 
+// Routes must be ordered from most specific to most dynamic.
+// Static routes like /questions/new and /questions/search must come before
+// dynamic routes like /questions/:id — otherwise Hono matches "new" or "search"
+// as an id parameter and the correct route is never reached.
+
 app.get("/", (c) => {
   const html = nunjucks.render("index.html", { questions }); // rendering to a string
   return c.html(html);
@@ -25,6 +30,15 @@ app.get("/", (req, res) => {
 */
 app.get("/questions/new", (c) => {
   const html = nunjucks.render("new-question.html");
+  return c.html(html);
+});
+
+app.get("/questions/search", async (c) => {
+  const searchQuery = c.req.query("q") ?? "";
+  const filteredQuestions = questions.filter((question) =>
+    question.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+  const html = nunjucks.render("index.html", { question: filteredQuestions });
   return c.html(html);
 });
 
