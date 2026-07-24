@@ -60,6 +60,11 @@ app.post("/questions/:id/answers", async (c) => {
   const foundQuestion = questions.find(
     (question) => question.id === c.req.param("id"),
   );
+
+  if (!foundQuestion) {
+    return c.text("Question not found", 404);
+  }
+
   const answerToQuestion: Answer = {
     id: String(foundQuestion.answers.length + 1),
     body: body.body as string,
@@ -68,7 +73,7 @@ app.post("/questions/:id/answers", async (c) => {
   };
 
   foundQuestion.answers.push(answerToQuestion);
-  return c.redirect("/");
+  return c.redirect(`/questions/${c.req.param("id")}`);
 });
 
 /*
