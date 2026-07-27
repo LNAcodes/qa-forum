@@ -1,5 +1,15 @@
 {%extends "base.html"%} {% block title %}Q&A Forum{% endblock %} {% block
-content %} {% for question in questions %}
+content %}
+<form action="/questions/search" method="GET" class="form-example">
+  <div>
+    <label for="body">I want to search for this keyword:</label>
+    <input type="text" name="q" id="q" required />
+  </div>
+  <input type="submit" value="Search" />
+</form>
+{% for question in questions %}
 <a href="/questions/{{question.id}}">{{question.title}}</a>
 <p>{{question.author}} - {{question.createdAt}}</p>
+{% else %}
+<p>No questions found.</p>
 {%endfor%} <a href="/questions/new">Link to form</a> {% endblock %}

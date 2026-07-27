@@ -8,6 +8,7 @@ import type { Question, Answer } from "./src/types.d.ts";
 const app = new Hono();
 
 nunjucks.configure("views", {
+  // securing: preventing XSS - Cross-Site-Scripting
   autoescape: true,
 });
 
@@ -35,10 +36,14 @@ app.get("/questions/new", (c) => {
 
 app.get("/questions/search", async (c) => {
   const searchQuery = c.req.query("q") ?? "";
+  // c.req.query("q") returns undefined if no search query is provided (e.g. /questions/search without ?q=something)
+  // ?? "" prevents a crash by falling back to an empty string — .toLowerCase() on undefined would throw an error
+  // .includes("") matches everything, so all questions are returned when the search is empty
   const filteredQuestions = questions.filter((question) =>
     question.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
-  const html = nunjucks.render("index.html", { question: filteredQuestions });
+
+  const html = nunjucks.render("index.html", { questions: filteredQuestions });
   return c.html(html);
 });
 
@@ -47,6 +52,7 @@ app.get("/questions/:id", (c) => {
   const foundQuestion = questions.find(
     (question) => question.id === c.req.param("id"),
   );
+
   const html = nunjucks.render("detail.html", { question: foundQuestion });
   return c.html(html);
 });
@@ -80,9 +86,11 @@ app.post("/questions/:id/answers", async (c) => {
   }
 
   const answerToQuestion: Answer = {
+    // for testing
     id: String(foundQuestion.answers.length + 1),
     body: body.body as string,
     author: "Anonymous",
+    //later: session.user.name
     createdAt: new Date().toLocaleDateString(),
   };
 
@@ -100,6 +108,7 @@ app.get("/questions/1", (c) => {
 });
 */
 
+//starting server
 export default {
   port: 3000,
   fetch: app.fetch,
