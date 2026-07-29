@@ -1,5 +1,5 @@
-{%extends "_base.njk"%} {% block title %}Q&A Forum{% endblock %} {% block
-content %} {% if question %}
+{%extends "_base.njk"%} {% block title %}Q&A Forum{% endblock %}{% block
+content %}  <a href="/">Back to Home</a>{% if question %}
 <article>
   <h2>{{ question.title }}</h2>
   <p>{{ question.author }} - {{ question.createdAt }}</p>
@@ -20,6 +20,7 @@ content %} {% if question %}
   </div>
   <input type="submit" value="Submit Answer" />
 </form>
+<a href="/questions/{{question.id}}/edit">Edit Question</a>
 {% else %}
 <p>Question not found</p>
-{% endif %}{% endblock %}
+{% endif %} {% endblock %}

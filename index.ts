@@ -58,6 +58,24 @@ app.get("/questions/:id", (c) => {
   return c.html(html);
 });
 
+app.get("/questions/:id/edit", (c) => {
+  console.log("Receiving updated question page:", c.req.param("id"));
+
+  const updatedQuestion = questions.find(
+    (question) => question.id === c.req.param("id"),
+  );
+
+  if (!updatedQuestion) {
+    return c.text("Question not found", 404);
+  }
+
+  const html = nunjucks.render("edit-question.njk", {
+    question: updatedQuestion,
+  });
+
+  return c.html(html);
+});
+
 app.post("/questions", async (c) => {
   const body = await c.req.parseBody();
 
@@ -99,6 +117,23 @@ app.post("/questions/:id/answers", async (c) => {
   return c.redirect(`/questions/${c.req.param("id")}`);
 });
 
+app.post("/questions/:id/edit", async (c) => {
+  // console.log("Updated question:", c.req.param("id"));
+  const body = await c.req.parseBody();
+
+  const foundQuestion = questions.find(
+    (question) => question.id === c.req.param("id"),
+  );
+
+  if (!foundQuestion) {
+    return c.text("Question not found", 404);
+  }
+  // Mutation
+  foundQuestion.title = body.title as string;
+  foundQuestion.body = body.body as string;
+
+  return c.redirect(`/questions/${c.req.param("id")}`);
+});
 /*
 app.get("/test", (c) => {
   return c.text("test works");
