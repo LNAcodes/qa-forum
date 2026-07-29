@@ -1,3 +1,4 @@
+import { logger } from "hono/logger";
 import { Hono } from "hono";
 import nunjucks from "nunjucks";
 import { questions } from "./src/data.ts";
@@ -12,6 +13,8 @@ nunjucks.configure("views", {
   autoescape: true,
   watch: true,
 });
+
+app.use(logger());
 
 // Routes must be ordered from most specific to most dynamic.
 // Static routes like /questions/new and /questions/search must come before
