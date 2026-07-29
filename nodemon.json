@@ -1,4 +1,4 @@
 {
-  "ext": "ts,html",
+  "ext": "ts,njk",
   "exec": "bun index.ts"
 }

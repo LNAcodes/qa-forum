@@ -10,6 +10,7 @@ const app = new Hono();
 nunjucks.configure("views", {
   // securing: preventing XSS - Cross-Site-Scripting
   autoescape: true,
+  watch: true,
 });
 
 // Routes must be ordered from most specific to most dynamic.
@@ -18,7 +19,7 @@ nunjucks.configure("views", {
 // as an id parameter and the correct route is never reached.
 
 app.get("/", (c) => {
-  const html = nunjucks.render("index.html", { questions }); // rendering to a string
+  const html = nunjucks.render("index.njk", { questions }); // rendering to a string
   return c.html(html);
 });
 /* c.text("Hono!"));
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
 });
 */
 app.get("/questions/new", (c) => {
-  const html = nunjucks.render("new-question.html");
+  const html = nunjucks.render("new-question.njk");
   return c.html(html);
 });
 
@@ -43,7 +44,7 @@ app.get("/questions/search", async (c) => {
     question.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const html = nunjucks.render("index.html", { questions: filteredQuestions });
+  const html = nunjucks.render("index.njk", { questions: filteredQuestions });
   return c.html(html);
 });
 
@@ -53,7 +54,25 @@ app.get("/questions/:id", (c) => {
     (question) => question.id === c.req.param("id"),
   );
 
-  const html = nunjucks.render("detail.html", { question: foundQuestion });
+  const html = nunjucks.render("detail.njk", { question: foundQuestion });
+  return c.html(html);
+});
+
+app.get("/questions/:id/edit", (c) => {
+  console.log("Receiving updated question page:", c.req.param("id"));
+
+  const updatedQuestion = questions.find(
+    (question) => question.id === c.req.param("id"),
+  );
+
+  if (!updatedQuestion) {
+    return c.text("Question not found", 404);
+  }
+
+  const html = nunjucks.render("updated-question.njk", {
+    question: updatedQuestion,
+  });
+
   return c.html(html);
 });
 
@@ -98,6 +117,22 @@ app.post("/questions/:id/answers", async (c) => {
   return c.redirect(`/questions/${c.req.param("id")}`);
 });
 
+app.post("questions/:id/edit", async (c) => {
+  const body = await c.req.parseBody();
+
+  const foundQuestion = questions.find(
+    (question) => question.id === c.req.param("id"),
+  );
+
+  if (!foundQuestion) {
+    return c.text("Question not found", 404);
+  }
+  // Mutation
+  foundQuestion.title = body.title as string;
+  foundQuestion.body = body.body as string;
+
+  return c.redirect(`/questions/${c.req.param("id")}`);
+});
 /*
 app.get("/test", (c) => {
   return c.text("test works");
