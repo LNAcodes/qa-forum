@@ -69,7 +69,7 @@ app.get("/questions/:id/edit", (c) => {
     return c.text("Question not found", 404);
   }
 
-  const html = nunjucks.render("updated-question.njk", {
+  const html = nunjucks.render("edit-question.njk", {
     question: updatedQuestion,
   });
 
@@ -117,7 +117,8 @@ app.post("/questions/:id/answers", async (c) => {
   return c.redirect(`/questions/${c.req.param("id")}`);
 });
 
-app.post("questions/:id/edit", async (c) => {
+app.post("/questions/:id/edit", async (c) => {
+  // console.log("Updated question:", c.req.param("id"));
   const body = await c.req.parseBody();
 
   const foundQuestion = questions.find(
