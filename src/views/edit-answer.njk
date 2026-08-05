@@ -1,0 +1,10 @@
+{%extends "_base.njk"%} {%block title%}Ask a Question - Q&A Forum{% endblock
+%} {% block content %} <a href="/">Back to Home</a>
+<form action="/questions/{{questionId}}/answers/{{answer.id}}/edit" method="POST" class="form-example">
+  <div>
+    <label for="body">Body</label>
+    <textarea name="body" id="body" required>{{answer.body}}</textarea>
+  </div>
+  <input type="submit" value="Edit Answer" />
+</form>
+{% endblock %}
