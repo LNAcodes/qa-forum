@@ -8,6 +8,7 @@ content %}  <a href="/">Back to Home</a>{% if question %}
 {% for answer in question.answers %}
 <p>{{answer.body}}</p>
 <p>{{answer.author}} - {{ answer.createdAt }}</p>
+<a href="/questions/{{ question.id }}/answers/{{ answer.id }}/edit">Edit Answer</a>
 {% endfor %}
 <form
   action="/questions/{{ question.id }}/answers"
