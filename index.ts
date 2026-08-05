@@ -8,7 +8,7 @@ import type { Question, Answer } from "./src/types.d.ts";
 
 const app = new Hono();
 
-nunjucks.configure("views", {
+nunjucks.configure("src/views", {
   // securing: preventing XSS - Cross-Site-Scripting
   autoescape: true,
   watch: true,
